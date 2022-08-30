@@ -77,7 +77,13 @@ app.post("/product", async (req, res) => {
   console.log("result: ", result);
   res.send({ message: "product is added in database" });
 });
+app.delete("/products/:id", async (req, res) => {
+  console.log("ID", req.body.id);
+  const data = await dbConnect();
+  const result = await data.deleteOne({ _id: new mongodb(req.body.id) });
 
+  res.send(result);
+});
 let PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`app is running on ${PORT}`);
